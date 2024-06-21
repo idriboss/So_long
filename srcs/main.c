@@ -7,6 +7,9 @@ void	so_long(t_data *data)
 	t_mlx *mlx;
 
 	mlx = malloc(sizeof(t_mlx) * 1);
+	if (mlx == NULL)
+		free_and_exit(MALLOC_FAILED, EXIT_FAILURE, data, false);
+	ft_memset(mlx, 0, sizeof(t_mlx));
 	data->mlx = mlx;
 	mlx->mlx_ptr = mlx_init();
 	if (mlx->mlx_ptr == NULL)
@@ -16,7 +19,7 @@ void	so_long(t_data *data)
 	if (mlx->win_ptr == NULL)
 		free_and_exit("window opening failed", EXIT_FAILURE, data, false);
 	set_images(mlx, data);
-	mlx_hook(mlx->win_ptr, 2, 02, move, data);
+	mlx_hook(mlx->win_ptr, 02, (1L<<0), move, data);
 	mlx_loop(mlx->mlx_ptr);
 	mlx_destroy_display(mlx->mlx_ptr);
 	ft_free((void **)&mlx->mlx_ptr);
@@ -25,13 +28,10 @@ void	so_long(t_data *data)
 
 int	main(int argc, char **argv)
 {
-	t_data		*data;
-	t_player	*player;
-
+	t_data	*data;
+	
 	if (argc != 2)
 		return (1);
-	data = malloc(sizeof(t_data) * 1);
-	player = malloc(sizeof(t_player) * 1);
-	init_data(data, player, argv);
+	data = init_data(argv);
 	so_long(data);
 }

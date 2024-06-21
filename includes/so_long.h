@@ -6,14 +6,14 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 21:32:34 by ibaby             #+#    #+#             */
-/*   Updated: 2024/06/21 19:49:40 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/06/22 01:19:29 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "../libft/libft.h"
+# include "./libft.h"
 #include "../minilibx-linux/mlx.h"
 # include <fcntl.h>
 # include <stdio.h>
@@ -32,6 +32,7 @@
 # define FLOOR '0'
 # define COLLECT 'C'
 # define PLAYER 'P'
+# define REVERSE_PLAYER 'R'
 # define EXIT 'E'
 # define WALL_PATH "./images/tree.xpm"
 # define FLOOR_PATH "./images/ground.xpm"
@@ -64,11 +65,14 @@ typedef struct t_mlx
 
 typedef struct t_data
 {
-	t_mlx	*mlx;
+	t_mlx		*mlx;
 	t_player	*player;
 	char		**map;
 	int			map_y_length;
 	int			map_x_length;
+	int			collectible_count;
+	int			exit_x;
+	int			exit_y;
 }	t_data;
 
 void	free_and_exit(const char *err, int code, t_data *data, bool errno);
@@ -78,9 +82,11 @@ void	init_map(t_data *data, char *map_path);
 void	check_map(char **map, t_data *data);
 void	check_map_ways(char **map, t_data *data);
 void	init_player(char **map, t_player *player);
-void	init_data(t_data *data, t_player *player, char **argv);
+t_data	*init_data(char **argv);
 void 	set_images(t_mlx *mlx, t_data *data);
-void	move(t_mlx *mlx, t_data data);
-
+int		move(int code, t_data *data);
+void	put_images(t_mlx *mlx, t_data *data, int y, int x);
+void	map_images(t_mlx *mlx, t_data *data);
+void	open_images(t_mlx *mlx, t_data *data);
 
 #endif

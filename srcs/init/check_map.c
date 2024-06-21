@@ -6,7 +6,7 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 01:54:05 by ibaby             #+#    #+#             */
-/*   Updated: 2024/06/21 10:37:24 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/06/22 01:27:09 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,10 @@ static void	check_map_content(char **map, t_data *data)
 	int	x;
 	int	y;
 	int	player;
-	int	collectible;
 	int	exit;
 
 	y = -1;
 	player = 0;
-	collectible = 0;
 	exit = 0;
 	while (map[++y])
 	{
@@ -61,10 +59,11 @@ static void	check_map_content(char **map, t_data *data)
 			if (map[y][x] == 'E')
 				++exit;
 			if (map[y][x] == 'C')
-				++collectible;
+				data->collectible_count += 1;
 		}
 	}
-	if (player != 1 || exit != 1 || collectible < 1)
+	// printf("%i | %i | %i\n", player, collectible, exit);
+	if (player != 1 || exit != 1 || data->collectible_count < 1)
 		free_and_exit("map not valid", MAP_ERROR, data, false);
 }
 

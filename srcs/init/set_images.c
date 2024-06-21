@@ -1,4 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   set_images.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/22 00:40:29 by ibaby             #+#    #+#             */
+/*   Updated: 2024/06/22 01:39:00 by ibaby            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/so_long.h"
+
+static void	image_to_window(t_data *data, void *type, int y, int x)
+{
+	printf("case: %c\n", (char)(data->map[y][x]));
+	mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->win_ptr,
+							type, x * IMAGE_SIZE, y * IMAGE_SIZE);
+}
 
 void	put_images(t_mlx *mlx, t_data *data, int y, int x)
 {
@@ -6,20 +25,25 @@ void	put_images(t_mlx *mlx, t_data *data, int y, int x)
 
 	type = data->map[y][x];
 	if (type == WALL)
-		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->wall,
-				y * IMAGE_SIZE, x * IMAGE_SIZE);
-	if (type == PLAYER)
-		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->player,
-				y * IMAGE_SIZE, x * IMAGE_SIZE);
-	if (type == FLOOR)
-		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->floor,
-				y * IMAGE_SIZE, x * IMAGE_SIZE);
-	if (type == COLLECT)
-		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->collect,
-				y * IMAGE_SIZE, x * IMAGE_SIZE);
-	if (type == EXIT)
-		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->exit,
-				y * IMAGE_SIZE, x * IMAGE_SIZE);
+		image_to_window(data, mlx->wall, y, x);
+	else if (type == PLAYER)
+		image_to_window(data, mlx->player, y, x);
+	else if (type == REVERSE_PLAYER)
+		image_to_window(data, mlx->player_left, y, x);
+	else if (type == FLOOR)
+		image_to_window(data, mlx->floor, y, x);
+	else if (type == COLLECT)
+		image_to_window(data, mlx->collect, y, x);
+	else if (type == EXIT && data->collectible_count != 0)
+	{
+		image_to_window(data, mlx->floor, y, x);
+		data->exit_x = x;
+		data->exit_y = y;
+	}
+	else if (data->collectible_count == 0)
+	{
+		image_to_window(data, mlx->exit, data->exit_y, data->exit_x);
+	}
 }
 
 void	map_images(t_mlx *mlx, t_data *data)
@@ -69,8 +93,3 @@ void	open_images(t_mlx *mlx, t_data *data)
 	mlx->exit = check_image(EXIT_PATH, mlx, data);
 }
 
-void set_images(t_mlx *mlx, t_data *data)
-{
-	open_images(mlx, data);
-	map_images(mlx, data);
-}
