@@ -17,5 +17,8 @@
 		"utility": "c",
 		"compare": "c",
 		"type_traits": "c"
-	}
+	},
+	"cSpell.words": [
+		"wasd"
+	]
 }

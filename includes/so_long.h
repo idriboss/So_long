@@ -6,7 +6,7 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 21:32:34 by ibaby             #+#    #+#             */
-/*   Updated: 2024/06/22 01:19:29 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/06/22 23:42:23 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 
 # define IMAGE_SIZE 64
 # define MAP_ERROR 2
-# define USAGE_BONUS ""
 # define MALLOC_FAILED "syscall: malloc failed"
 # define OPEN_FAIlED "syscall: open function failed"
 # define WALL '1'
@@ -34,13 +33,18 @@
 # define PLAYER 'P'
 # define REVERSE_PLAYER 'R'
 # define EXIT 'E'
+# define WATER 'W'
 # define WALL_PATH "./images/tree.xpm"
 # define FLOOR_PATH "./images/ground.xpm"
-# define COLLECT_PATH "./images/meat.xpm"
+# define COLLECT_PATH "./images/wood.xpm"
 # define PLAYER_PATH "./images/player_right.xpm"
-# define PLAYER_LEFT_PATH "./images/player_left.xpm"
+# define REVERSE_PLAYER_PATH "./images/player_left.xpm"
 # define WATER_PATH "./images/water.xpm"
 # define EXIT_PATH "./images/house.xpm"
+# define DESTROYED_EXIT_PATH "./images/destroyed_house.xpm"
+# define WINDOW_X_SIZE 1920
+# define WINDOW_Y_SIZE 1080
+
 
 
 typedef struct t_player
@@ -54,12 +58,13 @@ typedef struct t_mlx
 	void	*mlx_ptr;
 	void	*win_ptr;
 	void	*player;
-	void	*player_left;
+	void	*reverse_player;
 	void	*wall;
 	void	*floor;
 	void	*collect;
 	void	*water;
 	void	*exit;
+	void	*destroyed_exit;
 	
 }	t_mlx;
 
@@ -73,10 +78,11 @@ typedef struct t_data
 	int			collectible_count;
 	int			exit_x;
 	int			exit_y;
+	bool		finish;
 }	t_data;
 
-void	free_and_exit(const char *err, int code, t_data *data, bool errno);
-void	print_err_and_exit(const char *err, int code, bool errno, t_data *data);
+void	free_and_exit(const char *err, int code, t_data *data);
+void	print_err_and_exit(const char *err, int code);
 char	*map(const char *map_path, t_data *data);
 void	init_map(t_data *data, char *map_path);
 void	check_map(char **map, t_data *data);
@@ -85,8 +91,10 @@ void	init_player(char **map, t_player *player);
 t_data	*init_data(char **argv);
 void 	set_images(t_mlx *mlx, t_data *data);
 int		move(int code, t_data *data);
-void	put_images(t_mlx *mlx, t_data *data, int y, int x);
-void	map_images(t_mlx *mlx, t_data *data);
+void	put_images(t_data *data, char type, int y, int x);
+void	map_images(t_data *data);
 void	open_images(t_mlx *mlx, t_data *data);
+void 	finish(t_data *data);
+
 
 #endif

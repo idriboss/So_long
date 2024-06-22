@@ -1,5 +1,5 @@
-*.o
-*.a
+*/*.o
+*/*.a
 *.ber
 so_long
 minilibx-linux

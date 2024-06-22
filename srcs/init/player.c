@@ -11,7 +11,7 @@ void	init_player(char **map, t_player *player)
 		x = 1;
 		while (map[y][x + 1])
 		{
-			if (map[y][x] == 'P')
+			if (map[y][x] == PLAYER)
 			{
 				player->x = x;
 				player->y= y;

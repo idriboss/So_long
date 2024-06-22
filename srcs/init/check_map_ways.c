@@ -5,25 +5,25 @@ int	extend(char **map, int x, int y)
 	int count;
 
 	count = 0;
-	if (map[y + 1][x] != '1' && map[y + 1][x] != 'P')
+	if (map[y + 1][x] != WALL && map[y + 1][x] != PLAYER)
 	{
 		count++;
-		map[y + 1][x] = 'P';
+		map[y + 1][x] = PLAYER;
 	}
-	if (map[y - 1][x] != '1' && map[y - 1][x] != 'P')
+	if (map[y - 1][x] != WALL && map[y - 1][x] != PLAYER)
 	{
 		count++;
-		map[y - 1][x] = 'P';
+		map[y - 1][x] = PLAYER;
 	}
-	if (map[y][x + 1] != '1' && map[y][x + 1] != 'P')
+	if (map[y][x + 1] != WALL && map[y][x + 1] != PLAYER)
 	{
 		count++;
-		map[y][x + 1] = 'P';
+		map[y][x + 1] = PLAYER;
 	}
-	if (map[y][x - 1] != '1' && map[y][x - 1] != 'P')
+	if (map[y][x - 1] != WALL && map[y][x - 1] != PLAYER)
 	{
 		count++;
-		map[y][x - 1] = 'P';
+		map[y][x - 1] = PLAYER;
 	}
 	return (count);
 }
@@ -43,7 +43,7 @@ void	extend_blob(char **map)
 			x = 0;
 			while (map[y][x])
 			{
-				if (map[y][x] == 'P')
+				if (map[y][x] == PLAYER)
 					count += extend(map, x, y);
 				x++;
 			}
@@ -63,8 +63,8 @@ void	check_map_ways(char **map, t_data *data)
 	extend_blob(map);
 	while (map[y])
 	{
-		if (ft_strchr(map[y], 'C') != NULL || ft_strchr(map[y], 'E'))
-			free_and_exit("map not playable", MAP_ERROR, data, false);
+		if (ft_strchr(map[y], COLLECT) != NULL || ft_strchr(map[y], EXIT))
+			free_and_exit("map not playable", MAP_ERROR, data);
 		y++;
 	}
 }
