@@ -6,7 +6,7 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 00:36:06 by ibaby             #+#    #+#             */
-/*   Updated: 2024/06/23 20:59:52 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/06/23 23:42:20 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,13 @@ int	up(int x, int y, t_data *data)
 		return (EXIT_FAILURE);
 	if (next_pos == EXIT && data->collectible_count != 0)
 		return (EXIT_FAILURE);
-	else if (next_pos == EXIT)
+	else if (next_pos == EXIT || next_pos == MONSTER)
 	{
 		data->finish = true;
+		if (next_pos == EXIT)
+			data->mlx->final_image = data->mlx->gg;
+		else if (next_pos == MONSTER)
+			data->mlx->final_image = data->mlx->lose;
 		return (EXIT_SUCCESS);
 	}
 	if (next_pos == COLLECT)
@@ -43,9 +47,13 @@ int	down(int x, int y, t_data *data)
 		return (EXIT_FAILURE);
 	if (next_pos == EXIT && data->collectible_count != 0)
 		return (EXIT_FAILURE);
-	else if (next_pos == EXIT)
+	else if (next_pos == EXIT || next_pos == MONSTER)
 	{
 		data->finish = true;
+		if (next_pos == EXIT)
+			data->mlx->final_image = data->mlx->gg;
+		else if (next_pos == MONSTER)
+			data->mlx->final_image = data->mlx->lose;
 		return (EXIT_SUCCESS);
 	}
 	if (next_pos == COLLECT)
@@ -68,9 +76,13 @@ int	left(int x, int y, t_data *data)
 	}
 	if (next_pos == EXIT && data->collectible_count != 0)
 		return (EXIT_FAILURE);
-	else if (next_pos == EXIT)
+	else if (next_pos == EXIT || next_pos == MONSTER)
 	{
 		data->finish = true;
+		if (next_pos == EXIT)
+			data->mlx->final_image = data->mlx->gg;
+		else if (next_pos == MONSTER)
+			data->mlx->final_image = data->mlx->lose;
 		return (EXIT_SUCCESS);
 	}
 	if (next_pos == COLLECT)
@@ -93,9 +105,13 @@ int	right(int x, int y, t_data *data)
 	}
 	if (next_pos == EXIT && data->collectible_count != 0)
 		return (EXIT_FAILURE);
-	else if (next_pos == EXIT)
+	else if (next_pos == EXIT || next_pos == MONSTER)
 	{
 		data->finish = true;
+		if (next_pos == EXIT)
+			data->mlx->final_image = data->mlx->gg;
+		else if (next_pos == MONSTER)
+			data->mlx->final_image = data->mlx->lose;
 		return (EXIT_SUCCESS);
 	}
 	if (next_pos == COLLECT)

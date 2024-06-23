@@ -6,7 +6,7 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 21:32:34 by ibaby             #+#    #+#             */
-/*   Updated: 2024/06/23 21:22:33 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/06/24 00:10:33 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@
 # define PLAYER 'P'
 # define REVERSE_PLAYER 'R'
 # define EXIT 'E'
+# define MONSTER 'M'
+# define M_RIGHT 'I'
+# define M_LEFT 'L'
+# define M_UP 'U'
+# define M_DOWN 'D'
 # define BLACK_PATH "./images/black.xpm"
 # define WALL_PATH "./images/tree.xpm"
 # define FLOOR_PATH "./images/ground.xpm"
@@ -44,6 +49,11 @@
 # define EXIT_PATH "./images/house.xpm"
 # define DESTROYED_EXIT_PATH "./images/destroyed_house.xpm"
 # define GG_PATH "./images/gg.xpm"
+# define LOSE_PATH "./images/lose.xpm"
+# define M_RIGHT_PATH "./images/M_right.xpm"
+# define M_LEFT_PATH "./images/M_left.xpm"
+# define M_UP_PATH "./images/M_up.xpm"
+# define M_DOWN_PATH "./images/M_down.xpm"
 # define WINDOW_X_SIZE 1920
 # define WINDOW_Y_SIZE 1080
 # define mlx_ptr_number 11
@@ -55,6 +65,7 @@ typedef struct t_mlx
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
+	void	*final_image;
 	void	*player;
 	void	*reverse_player;
 	void	*wall;
@@ -63,6 +74,11 @@ typedef struct t_mlx
 	void	*exit;
 	void	*destroyed_exit;
 	void	*black;
+	void	*m_up;
+	void	*m_down;
+	void	*m_right;
+	void	*m_left;
+	void	*lose;
 	void	*gg;
 	int		gg_x_size;
 	int		gg_y_size;
@@ -98,5 +114,6 @@ int 	finish(t_data *data);
 void	image_to_window(t_data *data, void *type, int y, int x);
 int		destroy_mlx(t_mlx *mlx);
 void	ft_mlx_destroy_ptr(void **ptd, char ptr_type, t_mlx *mlx);
+void	*check_image(char *file_path, t_mlx *mlx, t_data *data);
 
 #endif

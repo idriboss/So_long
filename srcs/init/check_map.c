@@ -6,7 +6,7 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 01:54:05 by ibaby             #+#    #+#             */
-/*   Updated: 2024/06/23 21:14:04 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/06/24 00:12:32 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ static void	check_map_content(char **map, t_data *data)
 				++exit;
 			if (map[y][x] == COLLECT)
 				data->collectible_count += 1;
+			if (ft_strchr("10MECP", map[y][x]) == NULL)
+				free_and_exit("invalid map", EXIT_FAILURE, data);
 		}
 	}
 	if (player != 1 || exit != 1 || data->collectible_count < 1)
