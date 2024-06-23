@@ -1,10 +1,12 @@
 #include "../../includes/so_long.h"
 
-void	init_player(char **map, t_player *player)
+void	init_player(t_data *data)
 {
-	int	x;
-	int	y;
+	char	**map;
+	int		x;
+	int		y;
 
+	map = data->map;
 	y = 1;
 	while (map[y + 1])
 	{
@@ -13,8 +15,8 @@ void	init_player(char **map, t_player *player)
 		{
 			if (map[y][x] == PLAYER)
 			{
-				player->x = x;
-				player->y= y;
+				data->player_x = x;
+				data->player_y = y;
 				break;
 			}
 			x++;

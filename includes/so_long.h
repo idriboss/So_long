@@ -6,7 +6,7 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 21:32:34 by ibaby             #+#    #+#             */
-/*   Updated: 2024/06/23 06:32:06 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/06/23 21:22:33 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,9 @@
 # define WINDOW_X_SIZE 1920
 # define WINDOW_Y_SIZE 1080
 # define mlx_ptr_number 11
-
-
-
-typedef struct t_player
-{
-	int	x;
-	int	y;
-}	t_player;
+# define DISPLAY 'D'
+# define IMAGE 'I'
+# define WINDOW 'W'
 
 typedef struct t_mlx
 {
@@ -76,23 +71,23 @@ typedef struct t_mlx
 typedef struct t_data
 {
 	t_mlx		*mlx;
-	t_player	*player;
 	char		**map;
 	int			map_y_length;
 	int			map_x_length;
 	int			collectible_count;
 	int			exit_x;
 	int			exit_y;
+	int			player_x;
+	int			player_y;
 	bool		finish;
 }	t_data;
 
 void	free_and_exit(const char *err, int code, t_data *data);
-void	print_err_and_exit(const char *err, int code);
 char	*map(const char *map_path, t_data *data);
 void	init_map(t_data *data, char *map_path);
 void	check_map(char **map, t_data *data);
 void	check_map_ways(char **map, t_data *data);
-void	init_player(char **map, t_player *player);
+void	init_player(t_data *data);
 t_data	*init_data(char **argv);
 void 	set_images(t_mlx *mlx, t_data *data);
 int		move(int code, t_data *data);
@@ -101,5 +96,7 @@ void	map_images(t_data *data);
 void	open_images(t_mlx *mlx, t_data *data);
 int 	finish(t_data *data);
 void	image_to_window(t_data *data, void *type, int y, int x);
-int		escape(int code, t_data *data);
+int		destroy_mlx(t_mlx *mlx);
+void	ft_mlx_destroy_ptr(void **ptd, char ptr_type, t_mlx *mlx);
+
 #endif

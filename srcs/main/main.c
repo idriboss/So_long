@@ -21,10 +21,9 @@ void	so_long(t_data *data)
 	set_images(mlx, data);
 	// TODO: mlx_hook(exit)
 	mlx_loop_hook(mlx->mlx_ptr, finish, data);
-	mlx_hook(mlx->win_ptr, 02, (1L<<0), escape, data);
 	mlx_hook(mlx->win_ptr, 02, (1L<<0), move, data);
 	mlx_loop(mlx->mlx_ptr);
-	printf("FINISHED\n");
+	free_and_exit("YOU WIN !", EXIT_SUCCESS, data);
 }
 
 int	main(int argc, char **argv)

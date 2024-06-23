@@ -20,7 +20,7 @@ MlX_FLAGS = -Lmlx -Imlx -lmlx -framework OpenGL -framework AppKit
 
 SRC_PATH = ./srcs/main ./srcs/init
 
-LIBFTPATH = ../libft
+LIBFTPATH = libft
 
 FILES = $(foreach dir, $(SRC_PATH), $(wildcard $(dir)/*c))
 
@@ -37,7 +37,7 @@ LIBMLX = libmx_linux.a
 all : $(LIBMLX)  $(LIBFT) $(NAME)
 
 $(NAME) :  $(OBJ)
-			@$(CC) $(FLAGS) $(OBJ) $(INCLUDES) -L ../libft -lft -L ./minilibx-linux -lmlx -lXext -lX11 -o $(NAME)
+			@$(CC) $(FLAGS) $(OBJ) $(INCLUDES) -L $(LIBFTPATH) -lft -L ./minilibx-linux -lmlx -lXext -lX11 -o $(NAME)
 			@echo "$(GREEN)$(NAME) done ! ✅$(END)"
 
 $(LIBMLX) :
