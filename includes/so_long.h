@@ -6,7 +6,7 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 21:32:34 by ibaby             #+#    #+#             */
-/*   Updated: 2024/06/22 23:42:23 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/06/23 06:32:06 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <stdbool.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <X11/keysym.h>
+# include <limits.h>
 
 # define IMAGE_SIZE 64
 # define MAP_ERROR 2
@@ -33,17 +35,18 @@
 # define PLAYER 'P'
 # define REVERSE_PLAYER 'R'
 # define EXIT 'E'
-# define WATER 'W'
+# define BLACK_PATH "./images/black.xpm"
 # define WALL_PATH "./images/tree.xpm"
 # define FLOOR_PATH "./images/ground.xpm"
 # define COLLECT_PATH "./images/wood.xpm"
 # define PLAYER_PATH "./images/player_right.xpm"
 # define REVERSE_PLAYER_PATH "./images/player_left.xpm"
-# define WATER_PATH "./images/water.xpm"
 # define EXIT_PATH "./images/house.xpm"
 # define DESTROYED_EXIT_PATH "./images/destroyed_house.xpm"
+# define GG_PATH "./images/gg.xpm"
 # define WINDOW_X_SIZE 1920
 # define WINDOW_Y_SIZE 1080
+# define mlx_ptr_number 11
 
 
 
@@ -62,10 +65,12 @@ typedef struct t_mlx
 	void	*wall;
 	void	*floor;
 	void	*collect;
-	void	*water;
 	void	*exit;
 	void	*destroyed_exit;
-	
+	void	*black;
+	void	*gg;
+	int		gg_x_size;
+	int		gg_y_size;
 }	t_mlx;
 
 typedef struct t_data
@@ -94,7 +99,7 @@ int		move(int code, t_data *data);
 void	put_images(t_data *data, char type, int y, int x);
 void	map_images(t_data *data);
 void	open_images(t_mlx *mlx, t_data *data);
-void 	finish(t_data *data);
-
-
+int 	finish(t_data *data);
+void	image_to_window(t_data *data, void *type, int y, int x);
+int		escape(int code, t_data *data);
 #endif

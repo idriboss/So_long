@@ -6,7 +6,7 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 00:36:06 by ibaby             #+#    #+#             */
-/*   Updated: 2024/06/22 18:23:25 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/06/23 06:29:17 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	up(int x, int y, t_data *data)
 		return (EXIT_FAILURE);
 	else if (next_pos == EXIT)
 	{
-		//TODO: finish
+		data->finish = true;
 		return (EXIT_SUCCESS);
 	}
 	if (next_pos == COLLECT)
@@ -45,7 +45,7 @@ int	down(int x, int y, t_data *data)
 		return (EXIT_FAILURE);
 	else if (next_pos == EXIT)
 	{
-		//TODO: finish
+		data->finish = true;
 		return (EXIT_SUCCESS);
 	}
 	if (next_pos == COLLECT)
@@ -70,7 +70,7 @@ int	left(int x, int y, t_data *data)
 		return (EXIT_FAILURE);
 	else if (next_pos == EXIT)
 	{
-		//TODO: finish
+		data->finish = true;
 		return (EXIT_SUCCESS);
 	}
 	if (next_pos == COLLECT)
@@ -95,7 +95,7 @@ int	right(int x, int y, t_data *data)
 		return (EXIT_FAILURE);
 	else if (next_pos == EXIT)
 	{
-		//TODO: finish
+		data->finish = true;
 		return (EXIT_SUCCESS);
 	}
 	if (next_pos == COLLECT)
@@ -110,25 +110,25 @@ int	move(int code, t_data *data)
 {
 	static int	step_count;
 	t_player	*player;
-	int			val;
+	int			exit_status;
 
-	val = 0;
+	exit_status = 0;
 	if (data->finish == true)
 	{
-		finish(data);
+		return (EXIT_SUCCESS);
 	}
 	if (ft_strchr("wasd", code) == NULL)
 		return (EXIT_FAILURE);
 	player = data->player;
 	if (code == 'w')
-		val = up(player->x, player->y, data);
+		exit_status = up(player->x, player->y, data);
 	else if (code == 'a')
-		val = left(player->x, player->y, data);
+		exit_status = left(player->x, player->y, data);
 	else if (code == 's')
-		val = down(player->x, player->y, data);
+		exit_status = down(player->x, player->y, data);
 	else if (code == 'd')
-		val = right(player->x, player->y, data);
-	if (val == EXIT_SUCCESS)
+		exit_status = right(player->x, player->y, data);
+	if (exit_status == EXIT_SUCCESS)
 		ft_printf("nombre de pas: %i\n", ++step_count);
-	return (val);
+	return (exit_status);
 }

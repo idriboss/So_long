@@ -6,13 +6,13 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 00:40:29 by ibaby             #+#    #+#             */
-/*   Updated: 2024/06/22 23:49:17 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/06/23 05:23:40 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/so_long.h"
 
-static void	image_to_window(t_data *data, void *type, int y, int x)
+void	image_to_window(t_data *data, void *type, int y, int x)
 {
 	mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->win_ptr,
 							type, x * IMAGE_SIZE, y * IMAGE_SIZE);
@@ -40,8 +40,6 @@ void	put_images(t_data *data, char type, int y, int x)
 		image_to_window(data, data->mlx->floor, y, x);
 	else if (type == COLLECT)
 		image_to_window(data, data->mlx->collect, y, x);
-	else if (type == WATER)
-		image_to_window(data, data->mlx->water, y, x);
 	else if (type == EXIT && data->collectible_count != 0)
 	{
 		image_to_window(data, data->mlx->destroyed_exit, y, x);
@@ -59,16 +57,6 @@ void	map_images(t_data *data)
 	int	x;
 	int	y;
 
-	y = -1;
-	while (++y <= (1088 / IMAGE_SIZE))
-	{
-		x = -1;
-		while (++x <= (1920 / IMAGE_SIZE))
-		{
-			mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->win_ptr,
-							data->mlx->water, x * IMAGE_SIZE, y * IMAGE_SIZE);
-		}
-	}
 	y = -1;
 	while (data->map[++y] != NULL)
 	{
@@ -104,8 +92,9 @@ void	open_images(t_mlx *mlx, t_data *data)
 	mlx->wall = check_image(WALL_PATH, mlx, data);
 	mlx->floor = check_image(FLOOR_PATH, mlx, data);
 	mlx->collect = check_image(COLLECT_PATH, mlx, data);
-	mlx->water = check_image(WATER_PATH, mlx, data);
 	mlx->exit = check_image(EXIT_PATH, mlx, data);
 	mlx->destroyed_exit = check_image(DESTROYED_EXIT_PATH, mlx, data);
+	mlx->black = check_image(BLACK_PATH, mlx, data);
+	mlx->gg = mlx_xpm_file_to_image(mlx->mlx_ptr, GG_PATH, &mlx->gg_x_size, &mlx->gg_y_size);
 }
 
