@@ -6,7 +6,7 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 22:35:02 by ibaby             #+#    #+#             */
-/*   Updated: 2024/06/24 16:39:05 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/06/25 15:54:36 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stddef.h>
 # include <stdio.h>
 # include <stdbool.h>
+# include <fcntl.h>
 # include "ft_printf.h"
 # include "get_next_line.h"
 

@@ -6,7 +6,7 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 23:35:34 by ibaby             #+#    #+#             */
-/*   Updated: 2024/06/25 05:05:38 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/06/25 16:14:14 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_data	*init_data(char **argv)
 	i = 0;
 	get_screen_size(&screen_size_x, &screen_size_y);
 	if (get_screen_size(&screen_size_x, &screen_size_y) == EXIT_FAILURE)
-		return (NULL);
+		print_err_and_exit("mlx function failed", EXIT_FAILURE, false);
 	data = malloc(sizeof(t_data) * 1);
 	if (data == NULL)
 		free_and_exit(MALLOC_FAILED,EXIT_FAILURE, data);

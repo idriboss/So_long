@@ -6,7 +6,7 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 06:30:03 by ibaby             #+#    #+#             */
-/*   Updated: 2024/06/25 15:43:43 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/06/25 16:09:09 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	init_map(t_data *data, char *map_path)
 	check_map(splited_map, data, &_map, &splited_map);
 	free_2d_array((void ***)&splited_map);
 	data->map = ft_split(_map, '\n');
+	if (data->map == NULL)
+		free_and_exit(MALLOC_FAILED, EXIT_FAILURE, data);
 	ft_free((void **)&_map);
 }
 
@@ -67,15 +69,26 @@ char	*map(const char *map_file, t_data *data)
 	if (fd == -1)
 		free_and_exit(OPEN_FAIlED, EXIT_FAILURE, data);
 	gnl_map = get_next_line(fd);
+	if (gnl_map == NULL)
+	{
+		close(fd);
+		free_and_exit(MALLOC_FAILED, EXIT_FAILURE, data);
+	}
 	buff = ft_strdup("");
 	if (buff == NULL)
+	{
+		close(fd);
 		free_and_exit(MALLOC_FAILED, EXIT_FAILURE, data);
+	}
 	while (gnl_map != NULL)
 	{
 		buff = ft_re_strjoin(buff, gnl_map);
 		ft_free((void **)&gnl_map);
 		if (!buff)
+		{
+			close(fd);
 			free_and_exit(MALLOC_FAILED, EXIT_FAILURE, data);
+		}
 		gnl_map = get_next_line(fd);
 	}
 	if (buff == NULL)
