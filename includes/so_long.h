@@ -6,7 +6,7 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 21:32:34 by ibaby             #+#    #+#             */
-/*   Updated: 2024/06/25 04:34:39 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/06/25 15:41:39 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,8 @@ typedef struct t_data
 void	free_and_exit(const char *err, int code, t_data *data);
 char	*map(const char *map_path, t_data *data);
 void	init_map(t_data *data, char *map_path);
-void	check_map(char **map, t_data *data);
-void	check_map_ways(char **map, t_data *data);
+void	check_map(char **map, t_data *data, char **to_free, char ***to_free2d);
+int		check_map_ways(char **map);
 void	init_player(t_data *data);
 t_data	*init_data(char **argv);
 void 	set_images(t_mlx *mlx, t_data *data);

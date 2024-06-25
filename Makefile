@@ -14,7 +14,7 @@ NAME = so_long
 
 CC = cc
 
-FLAGS = -Wall -Wextra -Werror -g3
+FLAGS = -Wall -Wextra -Werror -g3 -O3
 
 MlX_FLAGS = -Lmlx -Imlx -lmlx -framework OpenGL -framework AppKit
 

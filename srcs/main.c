@@ -3,14 +3,12 @@
 void	put_step_count(t_data *data)
 {
 	char		*count;
-	static int	step;
+	static int	step = 0;
 
-	step = 0;
 	put_images(data, FLOOR, 0, 0);
 	count = ft_itoa(++step);
 	if (count == NULL)
 		free_and_exit(MALLOC_FAILED, EXIT_FAILURE, data);
-	ft_printf("step: %s\n", count);
 	mlx_string_put(data->mlx->mlx_ptr, data->mlx->win_ptr, IMAGE_SIZE / 3,
 			IMAGE_SIZE / 2, 0xFFFFFF, count);
 	ft_free((void **)&count);
@@ -55,7 +53,6 @@ void	so_long(t_data *data)
 		free_and_exit("window opening failed", EXIT_FAILURE, data);
 	set_images(mlx, data);
 	put_images(data, FLOOR, 0, 0);
-	// TODO: mlx_hook(exit)
 	mlx_loop_hook(mlx->mlx_ptr, display, data);
 	mlx_hook(mlx->win_ptr, 02, (1L << 0), move, data);
 	mlx_hook(mlx->win_ptr, 17, 0L, exit_button, data);

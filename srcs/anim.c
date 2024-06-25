@@ -6,7 +6,7 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 18:10:31 by ibaby             #+#    #+#             */
-/*   Updated: 2024/06/25 05:05:38 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/06/25 12:27:10 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,28 +27,34 @@ void	put_trees(t_data *data, void *image_ptr)
 
 int	animation(t_data *data)
 {
-	static int	frame;
+	static int	frame = 0;
 	float		count;
-	static int	count2;
+	static int	count2 = 0;
 	int			between_sprite;
 
-	frame = 0;
-	count2 = 0;
-	between_sprite = 10000;
-	count = ++frame % ((between_sprite * 6) * 4);
+	between_sprite = 6000;
+	count = ++frame % ((between_sprite * 8) * 1);
 	if (count == 0)
 		count2 = frame;
-	else if (frame == count2 + between_sprite)
-		put_trees(data, data->mlx->trees[5]);
+	else if (frame == count2 + between_sprite * 1)
+		put_trees(data, data->mlx->trees[2]);
 	else if (frame == count2 + between_sprite * 2)
-		put_trees(data, data->mlx->trees[1]);
+		put_trees(data, data->mlx->trees[4]);
 	else if (frame == count2 + between_sprite * 3)
 		put_trees(data, data->mlx->trees[2]);
 	else if (frame == count2 + between_sprite * 4)
-		put_trees(data, data->mlx->trees[3]);
+		put_trees(data, data->mlx->trees[0]);
 	else if (frame == count2 + between_sprite * 5)
-		put_trees(data, data->mlx->trees[4]);
+		put_trees(data, data->mlx->trees[1]);
 	else if (frame == count2 + between_sprite * 6)
+		put_trees(data, data->mlx->trees[3]);
+	else if (frame == count2 + between_sprite * 7)
+		put_trees(data, data->mlx->trees[5]);
+	else if (frame == count2 + between_sprite * 8)
+		put_trees(data, data->mlx->trees[3]);
+	else if (frame == count2 + between_sprite * 9)
+		put_trees(data, data->mlx->trees[3]);
+	else if (frame == count2 + between_sprite * 10)
 	{
 		put_trees(data, data->mlx->trees[0]);
 		count2 = 0;

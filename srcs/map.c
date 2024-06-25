@@ -6,7 +6,7 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 06:30:03 by ibaby             #+#    #+#             */
-/*   Updated: 2024/06/25 05:05:38 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/06/25 15:43:43 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,12 @@ void	init_map(t_data *data, char *map_path)
 	char	**splited_map;
 
 	_map = map(map_path, data);
+	if (ft_strnstr(_map, "\n\n", ft_strlen(_map)) != NULL)
+		free_and_exit("invalid map", EXIT_FAILURE, data);
 	splited_map = ft_split(_map, '\n');
 	if (splited_map == NULL)
 		free_and_exit(MALLOC_FAILED, EXIT_FAILURE, data);
-	check_map(splited_map, data);
+	check_map(splited_map, data, &_map, &splited_map);
 	free_2d_array((void ***)&splited_map);
 	data->map = ft_split(_map, '\n');
 	ft_free((void **)&_map);

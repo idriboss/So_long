@@ -6,7 +6,7 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 05:29:26 by ibaby             #+#    #+#             */
-/*   Updated: 2024/06/25 05:05:38 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/06/25 15:38:20 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,15 @@ static void	final_image(t_data *data)
 
 int	finish(t_data *data)
 {
-	static int	frame;
+	static int	frame = 0;
 	int			x;
 	int			y;
 
-	frame = 0;
 	if (data->finish == false)
 		return (EXIT_SUCCESS);
 	frame += 1;
-	if (frame >= 10000)
-		return (EXIT_SUCCESS);
+	if (frame > 75000)
+		free_and_exit(NULL, EXIT_SUCCESS, data);
 	y = -1;
 	if (frame == 1)
 	{

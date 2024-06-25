@@ -6,13 +6,13 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 01:54:05 by ibaby             #+#    #+#             */
-/*   Updated: 2024/06/25 05:05:38 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/06/25 15:37:54 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-static void	check_map_edge(char **map, t_data *data)
+static int	check_map_edge(char **map)
 {
 	int	x;
 	int	y;
@@ -22,24 +22,25 @@ static void	check_map_edge(char **map, t_data *data)
 	length = -1;
 	while (map[y][++length])
 		if (map[y][length] != WALL)
-			free_and_exit("map not closed", MAP_ERROR, data);
+			return (EXIT_FAILURE);
 	while (map[++y] != NULL)
 	{
 		x = ft_strlen(map[y]);
 		if (x != length)
-			free_and_exit("map isn't rectangle", MAP_ERROR, data);
+			return (EXIT_FAILURE);
 		if (map[y][0] != WALL || map[y][x - 1] != WALL)
-			free_and_exit("map is not closed", MAP_ERROR, data);
+			return (EXIT_FAILURE);
 	}
 	x = -1;
 	while (map[y - 1][++x])
 	{
 		if (map[y - 1][x] != WALL)
-			free_and_exit("map is not closed", MAP_ERROR, data);
+			return (EXIT_FAILURE);
 	}
+	return (EXIT_SUCCESS);
 }
 
-static void	check_map_content(char **map, t_data *data)
+static int	check_map_content(char **map, t_data *data)
 {
 	int	x;
 	int	y;
@@ -61,16 +62,32 @@ static void	check_map_content(char **map, t_data *data)
 			if (map[y][x] == COLLECT)
 				data->collectible_count += 1;
 			if (ft_strchr("10MECP", map[y][x]) == NULL)
-				free_and_exit("unknow token in map", EXIT_FAILURE, data);
+				return (EXIT_FAILURE);
 		}
 	}
 	if (player != 1 || exit != 1 || data->collectible_count < 1)
-		free_and_exit("map not valid", MAP_ERROR, data);
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
-void	check_map(char **map, t_data *data)
+void	check_map(char **map, t_data *data, char **to_free, char ***to_free2d)
 {
-	check_map_edge(map, data);
-	check_map_content(map, data);
-	check_map_ways(map, data);
+	if (check_map_edge(map) == EXIT_FAILURE)
+	{
+		ft_free((void **)to_free);
+		free_2d_array((void ***)to_free2d);
+		free_and_exit("map invalid", EXIT_FAILURE, data);
+	}
+	if (check_map_content(map, data) == EXIT_FAILURE)
+	{
+		ft_free((void **)to_free);
+		free_2d_array((void ***)to_free2d);
+		free_and_exit("map invalid", EXIT_FAILURE, data);
+	}
+	if (check_map_ways(map) == EXIT_FAILURE)
+	{
+		ft_free((void **)to_free);
+		free_2d_array((void ***)to_free2d);
+		free_and_exit("map invalid", EXIT_FAILURE, data);
+	}
 }
