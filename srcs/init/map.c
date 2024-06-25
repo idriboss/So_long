@@ -6,11 +6,36 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 06:30:03 by ibaby             #+#    #+#             */
-/*   Updated: 2024/06/23 18:34:24 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/06/25 04:45:32 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/so_long.h"
+
+void	init_player(t_data *data)
+{
+	char	**map;
+	int		x;
+	int		y;
+
+	map = data->map;
+	y = 1;
+	while (map[y + 1])
+	{
+		x = 1;
+		while (map[y][x + 1])
+		{
+			if (map[y][x] == PLAYER)
+			{
+				data->player_x = x;
+				data->player_y = y;
+				break;
+			}
+			x++;
+		}
+		y++;
+	}
+}
 
 void	init_map(t_data *data, char *map_path)
 {
@@ -51,7 +76,7 @@ char	*map(const char *map_file, t_data *data)
 		gnl_map = get_next_line(fd);
 	}
 	if (buff == NULL)
-		free_and_exit("Map incorrect", MAP_ERROR, data);
+		free_and_exit("Failed opening the map", MAP_ERROR, data);
 	close(fd);
 	return (buff);
 }

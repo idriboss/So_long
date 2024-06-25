@@ -6,7 +6,7 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 05:29:26 by ibaby             #+#    #+#             */
-/*   Updated: 2024/06/24 00:32:12 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/06/25 04:42:13 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,38 +20,43 @@ static void	final_image(t_data *data)
 	x = (data->map_x_length * IMAGE_SIZE - data->mlx->gg_x_size) / 2;
 	y = (data->map_y_length * IMAGE_SIZE - data->mlx->gg_y_size) / 2;
 	if (data->mlx->gg_x_size <= data->map_x_length * IMAGE_SIZE &&
-			data->mlx->gg_y_size <= data->map_y_length * IMAGE_SIZE)
+		data->mlx->gg_y_size <= data->map_y_length * IMAGE_SIZE)
 	{
 		mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->win_ptr,
-								data->mlx->final_image, x, y);
+				data->mlx->final_image, x, y);
 		return ;
 	}
 	else
-		free_and_exit(NULL, EXIT_SUCCESS, data);
+		free_and_exit("play again with a larger map if you want a surprise !"
+			, EXIT_SUCCESS, data);
 }
 
-int finish(t_data *data)
+int	finish(t_data *data)
 {
-	static int	frame;
-	int			x;
-	int			y;
+	static int	frame = 0;
+	int					x;
+	int					y;
 
 	if (data->finish == false)
 		return (EXIT_SUCCESS);
-	if (++frame >= 2000)
-		mlx_loop_end(data->mlx->mlx_ptr);
+	frame += 1;
+	if (frame >= 10000)
+		return (EXIT_SUCCESS);
 	y = -1;
-	while (data->map[++y] != NULL)
+	if (frame == 1)
 	{
-		x = -1;
-		while (data->map[y][++x] != '\0')
-			image_to_window(data, data->mlx->black, y, x);
+		while (data->map[++y] != NULL)
+		{
+			x = -1;
+			while (data->map[y][++x] != '\0')
+				image_to_window(data, data->mlx->black, y, x);
+		}
+		final_image(data);
 	}
-	final_image(data);
 	return (EXIT_SUCCESS);
 }
 
-int	destroy_mlx(t_mlx *mlx)
+void	destroy_mlx(t_mlx *mlx)
 {
 	ft_mlx_destroy_ptr(&mlx->win_ptr, WINDOW, mlx);
 	ft_mlx_destroy_ptr(&mlx->black, IMAGE, mlx);
@@ -62,13 +67,22 @@ int	destroy_mlx(t_mlx *mlx)
 	ft_mlx_destroy_ptr(&mlx->reverse_player, IMAGE, mlx);
 	ft_mlx_destroy_ptr(&mlx->player, IMAGE, mlx);
 	ft_mlx_destroy_ptr(&mlx->gg, IMAGE, mlx);
+	ft_mlx_destroy_ptr(&mlx->lose, IMAGE, mlx);
 	ft_mlx_destroy_ptr(&mlx->m_down, IMAGE, mlx);
 	ft_mlx_destroy_ptr(&mlx->m_left, IMAGE, mlx);
+	ft_mlx_destroy_ptr(&mlx->wall, IMAGE, mlx);
 	ft_mlx_destroy_ptr(&mlx->m_right, IMAGE, mlx);
 	ft_mlx_destroy_ptr(&mlx->m_up, IMAGE, mlx);
-	ft_mlx_destroy_ptr(&mlx->lose, IMAGE, mlx);
+	if (mlx -> trees == NULL)
+		return (ft_mlx_destroy_ptr(&mlx->mlx_ptr, DISPLAY, mlx));
+	ft_mlx_destroy_ptr(&mlx->trees[0], IMAGE, mlx);
+	ft_mlx_destroy_ptr(&mlx->trees[1], IMAGE, mlx);
+	ft_mlx_destroy_ptr(&mlx->trees[2], IMAGE, mlx);
+	ft_mlx_destroy_ptr(&mlx->trees[3], IMAGE, mlx);
+	ft_mlx_destroy_ptr(&mlx->trees[4], IMAGE, mlx);
+	ft_mlx_destroy_ptr(&mlx->trees[5], IMAGE, mlx);
+	ft_free((void **)&mlx->trees);
 	ft_mlx_destroy_ptr(&mlx->mlx_ptr, DISPLAY, mlx);
-	return (EXIT_SUCCESS);
 }
 
 void	ft_mlx_destroy_ptr(void **ptd, char ptr_type, t_mlx *mlx)
@@ -99,6 +113,7 @@ void	free_and_exit(const char *err, int code, t_data *data)
 		ft_free((void **)&data->mlx);
 	}
 	free_2d_array((void ***)&data->map);
+	ft_free((void **)&data->wall_pos);
 	ft_free((void **)&data);
 	if (code == EXIT_FAILURE || code == MAP_ERROR)
 		ft_putstr_fd("Error: ", STDERR_FILENO);

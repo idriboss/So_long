@@ -18,7 +18,7 @@ FLAGS = -Wall -Wextra -Werror -g3
 
 MlX_FLAGS = -Lmlx -Imlx -lmlx -framework OpenGL -framework AppKit
 
-SRC_PATH = ./srcs/main ./srcs/init
+SRC_PATH = ./srcs/utils ./srcs/init ./srcs
 
 LIBFTPATH = libft
 

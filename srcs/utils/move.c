@@ -6,7 +6,7 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 00:36:06 by ibaby             #+#    #+#             */
-/*   Updated: 2024/06/23 23:42:20 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/06/25 04:36:59 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	up(int x, int y, t_data *data)
 	next_pos = data->map[y - 1][x];
 	if (next_pos == WALL)
 		return (EXIT_FAILURE);
-	if (next_pos == EXIT && data->collectible_count != 0)
+	if (next_pos == EXIT && data->collectible_count > 0)
 		return (EXIT_FAILURE);
 	else if (next_pos == EXIT || next_pos == MONSTER)
 	{
@@ -45,7 +45,7 @@ int	down(int x, int y, t_data *data)
 	next_pos = data->map[y + 1][x];
 	if (next_pos == WALL)
 		return (EXIT_FAILURE);
-	if (next_pos == EXIT && data->collectible_count != 0)
+	if (next_pos == EXIT && data->collectible_count > 0)
 		return (EXIT_FAILURE);
 	else if (next_pos == EXIT || next_pos == MONSTER)
 	{
@@ -74,7 +74,7 @@ int	left(int x, int y, t_data *data)
 		put_images(data, REVERSE_PLAYER, y, x);
 		return (EXIT_FAILURE);
 	}
-	if (next_pos == EXIT && data->collectible_count != 0)
+	if (next_pos == EXIT && data->collectible_count > 0)
 		return (EXIT_FAILURE);
 	else if (next_pos == EXIT || next_pos == MONSTER)
 	{
@@ -103,7 +103,7 @@ int	right(int x, int y, t_data *data)
 		put_images(data, PLAYER, y, x);
 		return (EXIT_FAILURE);
 	}
-	if (next_pos == EXIT && data->collectible_count != 0)
+	if (next_pos == EXIT && data->collectible_count > 0)
 		return (EXIT_FAILURE);
 	else if (next_pos == EXIT || next_pos == MONSTER)
 	{
@@ -124,12 +124,11 @@ int	right(int x, int y, t_data *data)
 
 int	move(int code, t_data *data)
 {
-	static int	step_count;
 	int			exit_status;
 
 	exit_status = 0;
 	if (code == 65307)
-		free_and_exit(NULL, EXIT_SUCCESS, data);
+		free_and_exit("Game exited !", EXIT_SUCCESS, data);
 	if (data->finish == true)
 	{
 		return (EXIT_SUCCESS);
@@ -145,6 +144,6 @@ int	move(int code, t_data *data)
 	else if (code == 'd')
 		exit_status = right(data->player_x, data->player_y, data);
 	if (exit_status == EXIT_SUCCESS)
-		ft_printf("nombre de pas: %i\n", ++step_count);
+		put_step_count(data);
 	return (exit_status);
 }

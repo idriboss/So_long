@@ -27,7 +27,7 @@ all: $(NAME)
 
 $(OBJS_DIR)%.o : %.c $(LIBS)
 	@mkdir -p $(OBJS_DIR)
-	@echo "$(YELLOW)Compiling: $<$(END)"
+	@echo "$(BLUE)Compiling: $<$(END)"
 	@$(CC) $(CC_FLAGS) -c $< -o $@
 
 $(NAME): $(OBJECTS_PREFIXED) $(SRCS)
