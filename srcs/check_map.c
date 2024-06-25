@@ -6,7 +6,7 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 01:54:05 by ibaby             #+#    #+#             */
-/*   Updated: 2024/06/25 15:37:54 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/06/25 16:37:54 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,8 @@ static int	check_map_content(char **map, t_data *data)
 	int	player;
 	int	exit;
 
+	free((player = 0, exit = 0, NULL));
 	y = -1;
-	player = 0;
-	exit = 0;
 	while (map[++y])
 	{
 		x = -1;

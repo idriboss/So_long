@@ -6,7 +6,7 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 23:35:34 by ibaby             #+#    #+#             */
-/*   Updated: 2024/06/25 16:14:14 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/06/25 16:41:49 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_data	*init_data(char **argv)
 		print_err_and_exit("mlx function failed", EXIT_FAILURE, false);
 	data = malloc(sizeof(t_data) * 1);
 	if (data == NULL)
-		free_and_exit(MALLOC_FAILED,EXIT_FAILURE, data);
+		free_and_exit(MALLOC_FAILED, EXIT_FAILURE, data);
 	ft_memset(data, 0, sizeof(t_data));
 	init_map(data, argv[1]);
 	data->map_x_length = ft_strlen(data->map[0]) - 1;
@@ -57,7 +57,7 @@ t_data	*init_data(char **argv)
 	return (data);
 }
 
-void set_images(t_mlx *mlx, t_data *data)
+void	set_images(t_mlx *mlx, t_data *data)
 {
 	open_images(mlx, data);
 	map_images(data);

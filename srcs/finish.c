@@ -6,7 +6,7 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 05:29:26 by ibaby             #+#    #+#             */
-/*   Updated: 2024/06/25 15:38:20 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/06/25 16:56:54 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@ static void	final_image(t_data *data)
 
 	x = (data->map_x_length * IMAGE_SIZE - data->mlx->gg_x_size) / 2;
 	y = (data->map_y_length * IMAGE_SIZE - data->mlx->gg_y_size) / 2;
-	if (data->mlx->gg_x_size <= data->map_x_length * IMAGE_SIZE &&
-		data->mlx->gg_y_size <= data->map_y_length * IMAGE_SIZE)
+	if (data->mlx->gg_x_size <= data->map_x_length * IMAGE_SIZE
+		&& data->mlx->gg_y_size <= data->map_y_length * IMAGE_SIZE)
 	{
 		mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->win_ptr,
-				data->mlx->final_image, x, y);
+			data->mlx->final_image, x, y);
 		return ;
 	}
 	else
 		free_and_exit("play again with a larger map if you want a surprise !",
-				EXIT_SUCCESS, data);
+			EXIT_SUCCESS, data);
 }
 
 int	finish(t_data *data)
@@ -40,7 +40,7 @@ int	finish(t_data *data)
 	if (data->finish == false)
 		return (EXIT_SUCCESS);
 	frame += 1;
-	if (frame > 75000)
+	if (frame > SPRITE_FRAME * 30)
 		free_and_exit(NULL, EXIT_SUCCESS, data);
 	y = -1;
 	if (frame == 1)

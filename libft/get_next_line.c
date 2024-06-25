@@ -6,7 +6,7 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 22:20:39 by ibaby             #+#    #+#             */
-/*   Updated: 2024/06/25 15:57:30 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/06/25 17:02:35 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || fd >= MAX_FD || BUFFER_SIZE <= 0)
 		return (NULL);
-	byte_read = 1;
-	str = ft_strdup(save[fd]);
+	free((byte_read = 1, str = ft_strdup(save[fd]), NULL));
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!str || !buffer)
 		return (free(buffer), free(str), NULL);
@@ -36,18 +35,14 @@ char	*get_next_line(int fd)
 		byte_read = read(fd, buffer, BUFFER_SIZE);
 		if (byte_read < 0)
 			return (ft_clean(save[fd]), free(buffer), free(str), NULL);
-		free((buffer[byte_read] = '\0', str = ft_re_strjoin(str, buffer),
-				NULL));
+		buffer[byte_read] = '\0';
+		str = ft_re_strjoin(str, buffer);
 		if (!str)
 			return (free(buffer), NULL);
 	}
-	after_line(str, save[fd]);
-	str = re_before_line(str);
+	free((after_line(str, save[fd]), str = re_before_line(str), NULL));
 	if (str != NULL && str[0] == '\0')
-	{
-		free(str);
-		str = NULL;
-	}
+		ft_free((void **)&str);
 	return (free(buffer), str);
 }
 

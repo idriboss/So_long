@@ -6,7 +6,7 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 06:30:03 by ibaby             #+#    #+#             */
-/*   Updated: 2024/06/25 16:09:09 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/06/25 18:42:05 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,12 @@ void	init_map(t_data *data, char *map_path)
 	ft_free((void **)&_map);
 }
 
+static void	close_fd_and_exit(char *error_name, int fd, t_data *data)
+{
+	close(fd);
+	free_and_exit(error_name, EXIT_FAILURE, data);
+}
+
 char	*map(const char *map_file, t_data *data)
 {
 	char	*gnl_map;
@@ -63,36 +69,24 @@ char	*map(const char *map_file, t_data *data)
 	int		fd;
 
 	if (ft_strlen(map_file) <= 4 || ft_strcmp(&map_file[ft_strlen(map_file)
-			- 4], ".ber") != 0)
+				- 4], ".ber") != 0)
 		free_and_exit("map file is not '.ber'", MAP_ERROR, data);
 	fd = open(map_file, O_RDONLY);
 	if (fd == -1)
-		free_and_exit(OPEN_FAIlED, EXIT_FAILURE, data);
-	gnl_map = get_next_line(fd);
-	if (gnl_map == NULL)
-	{
-		close(fd);
-		free_and_exit(MALLOC_FAILED, EXIT_FAILURE, data);
-	}
+		free_and_exit(OPEN_FAILED, EXIT_FAILURE, data);
 	buff = ft_strdup("");
 	if (buff == NULL)
+		close_fd_and_exit(MALLOC_FAILED, fd, data);
+	while (buff != NULL)
 	{
-		close(fd);
-		free_and_exit(MALLOC_FAILED, EXIT_FAILURE, data);
-	}
-	while (gnl_map != NULL)
-	{
+		gnl_map = get_next_line(fd);
+		if (gnl_map == NULL)
+			break ;
 		buff = ft_re_strjoin(buff, gnl_map);
 		ft_free((void **)&gnl_map);
-		if (!buff)
-		{
-			close(fd);
-			free_and_exit(MALLOC_FAILED, EXIT_FAILURE, data);
-		}
-		gnl_map = get_next_line(fd);
 	}
-	if (buff == NULL)
-		free_and_exit("Failed opening the map", MAP_ERROR, data);
 	close(fd);
+	if (buff == NULL)
+		close_fd_and_exit(MALLOC_FAILED, fd, data);
 	return (buff);
 }

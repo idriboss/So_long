@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/25 16:34:27 by ibaby             #+#    #+#             */
+/*   Updated: 2024/06/25 16:35:34 by ibaby            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/../includes/so_long.h"
 
 void	put_step_count(t_data *data)
@@ -10,7 +22,7 @@ void	put_step_count(t_data *data)
 	if (count == NULL)
 		free_and_exit(MALLOC_FAILED, EXIT_FAILURE, data);
 	mlx_string_put(data->mlx->mlx_ptr, data->mlx->win_ptr, IMAGE_SIZE / 3,
-			IMAGE_SIZE / 2, 0xFFFFFF, count);
+		IMAGE_SIZE / 2, 0xFFFFFF, count);
 	ft_free((void **)&count);
 }
 
@@ -46,9 +58,8 @@ void	so_long(t_data *data)
 	mlx->mlx_ptr = mlx_init();
 	if (mlx->mlx_ptr == NULL)
 		free_and_exit("mlx init failed", EXIT_FAILURE, data);
-	mlx->win_ptr =
-		mlx_new_window(mlx->mlx_ptr, (data->map_x_length + 1) * IMAGE_SIZE,
-				(data->map_y_length + 1) * IMAGE_SIZE, "So_long");
+	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, (data->map_x_length + 1)
+			* IMAGE_SIZE, (data->map_y_length + 1) * IMAGE_SIZE, "So_long");
 	if (mlx->win_ptr == NULL)
 		free_and_exit("window opening failed", EXIT_FAILURE, data);
 	set_images(mlx, data);
@@ -62,16 +73,10 @@ void	so_long(t_data *data)
 
 int	main(int argc, char **argv)
 {
-	t_data *data;
+	t_data	*data;
 
 	if (argc != 2)
 		return (EXIT_FAILURE);
-	/*
-  if (argc != 3)
-          return (EXIT_FAILURE)
-  int pid = fork();
-  if (pid == 0)
-          argv[1] = argv[2];*/
 	data = init_data(argv);
 	if (data == NULL)
 		return (1);

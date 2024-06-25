@@ -6,7 +6,7 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 22:32:59 by ibaby             #+#    #+#             */
-/*   Updated: 2024/06/25 15:31:15 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/06/25 16:52:17 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	fill(char **map, int y, int x)
 {
-	int count;
+	int	count;
 
 	count = 0;
 	if (map[y][x] == EXIT)

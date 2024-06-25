@@ -6,7 +6,7 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 21:32:34 by ibaby             #+#    #+#             */
-/*   Updated: 2024/06/25 15:41:39 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/06/25 17:05:04 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define SO_LONG_H
 
 # include "./libft.h"
-#include "../minilibx-linux/mlx.h"
+# include "../minilibx-linux/mlx.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include <sys/wait.h>
@@ -25,10 +25,12 @@
 # include <X11/keysym.h>
 # include <limits.h>
 
+# define SPRITE_FRAME 6000
+
 # define IMAGE_SIZE 64
 # define MAP_ERROR 2
 # define MALLOC_FAILED "syscall: malloc failed"
-# define OPEN_FAIlED "syscall: open function failed"
+# define OPEN_FAILED "syscall: open function failed"
 
 # define WALL '1'
 # define FLOOR '0'
@@ -63,15 +65,12 @@
 # define TREE5 "./images/trees/Tree5.xpm"
 # define TREE6 "./images/trees/Tree6.xpm"
 
-
 # define DISPLAY 'D'
 # define IMAGE 'I'
 # define WINDOW 'W'
 
 # define WINDOW_X_SIZE 1920
 # define WINDOW_Y_SIZE 1080
-# define mlx_ptr_number 11
-
 
 typedef struct t_mlx
 {
@@ -120,12 +119,12 @@ void	check_map(char **map, t_data *data, char **to_free, char ***to_free2d);
 int		check_map_ways(char **map);
 void	init_player(t_data *data);
 t_data	*init_data(char **argv);
-void 	set_images(t_mlx *mlx, t_data *data);
+void	set_images(t_mlx *mlx, t_data *data);
 int		move(int code, t_data *data);
 void	put_images(t_data *data, char type, int y, int x);
 void	map_images(t_data *data);
 void	open_images(t_mlx *mlx, t_data *data);
-int 	finish(t_data *data);
+int		finish(t_data *data);
 void	image_to_window(t_data *data, void *type, int y, int x);
 void	destroy_mlx(t_mlx *mlx);
 void	ft_mlx_destroy_ptr(void **ptd, char ptr_type, t_mlx *mlx);
