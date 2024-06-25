@@ -6,11 +6,11 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 01:54:05 by ibaby             #+#    #+#             */
-/*   Updated: 2024/06/25 04:44:33 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/06/25 05:05:38 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/so_long.h"
+#include "../includes/so_long.h"
 
 static void	check_map_edge(char **map, t_data *data)
 {
@@ -70,9 +70,7 @@ static void	check_map_content(char **map, t_data *data)
 
 void	check_map(char **map, t_data *data)
 {
-	
 	check_map_edge(map, data);
 	check_map_content(map, data);
 	check_map_ways(map, data);
-	
 }

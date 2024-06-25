@@ -6,11 +6,11 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 06:30:03 by ibaby             #+#    #+#             */
-/*   Updated: 2024/06/25 04:45:32 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/06/25 05:05:38 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/so_long.h"
+#include "../includes/so_long.h"
 
 void	init_player(t_data *data)
 {
@@ -29,7 +29,7 @@ void	init_player(t_data *data)
 			{
 				data->player_x = x;
 				data->player_y = y;
-				break;
+				break ;
 			}
 			x++;
 		}
@@ -39,8 +39,8 @@ void	init_player(t_data *data)
 
 void	init_map(t_data *data, char *map_path)
 {
-	char *_map;
-	char **splited_map;
+	char	*_map;
+	char	**splited_map;
 
 	_map = map(map_path, data);
 	splited_map = ft_split(_map, '\n');
@@ -56,9 +56,10 @@ char	*map(const char *map_file, t_data *data)
 {
 	char	*gnl_map;
 	char	*buff;
-	int	fd;
+	int		fd;
 
-	if (ft_strlen(map_file) <= 4 || ft_strcmp(&map_file[ft_strlen(map_file) - 4], ".ber") != 0)
+	if (ft_strlen(map_file) <= 4 || ft_strcmp(&map_file[ft_strlen(map_file)
+			- 4], ".ber") != 0)
 		free_and_exit("map file is not '.ber'", MAP_ERROR, data);
 	fd = open(map_file, O_RDONLY);
 	if (fd == -1)
@@ -80,4 +81,3 @@ char	*map(const char *map_file, t_data *data)
 	close(fd);
 	return (buff);
 }
-

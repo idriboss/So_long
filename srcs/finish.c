@@ -6,11 +6,11 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 05:29:26 by ibaby             #+#    #+#             */
-/*   Updated: 2024/06/25 04:42:13 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/06/25 05:05:38 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/so_long.h"
+#include "../includes/so_long.h"
 
 static void	final_image(t_data *data)
 {
@@ -27,16 +27,17 @@ static void	final_image(t_data *data)
 		return ;
 	}
 	else
-		free_and_exit("play again with a larger map if you want a surprise !"
-			, EXIT_SUCCESS, data);
+		free_and_exit("play again with a larger map if you want a surprise !",
+				EXIT_SUCCESS, data);
 }
 
 int	finish(t_data *data)
 {
-	static int	frame = 0;
-	int					x;
-	int					y;
+	static int	frame;
+	int			x;
+	int			y;
 
+	frame = 0;
 	if (data->finish == false)
 		return (EXIT_SUCCESS);
 	frame += 1;
@@ -73,7 +74,7 @@ void	destroy_mlx(t_mlx *mlx)
 	ft_mlx_destroy_ptr(&mlx->wall, IMAGE, mlx);
 	ft_mlx_destroy_ptr(&mlx->m_right, IMAGE, mlx);
 	ft_mlx_destroy_ptr(&mlx->m_up, IMAGE, mlx);
-	if (mlx -> trees == NULL)
+	if (mlx->trees == NULL)
 		return (ft_mlx_destroy_ptr(&mlx->mlx_ptr, DISPLAY, mlx));
 	ft_mlx_destroy_ptr(&mlx->trees[0], IMAGE, mlx);
 	ft_mlx_destroy_ptr(&mlx->trees[1], IMAGE, mlx);

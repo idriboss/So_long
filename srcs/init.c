@@ -6,11 +6,11 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 23:35:34 by ibaby             #+#    #+#             */
-/*   Updated: 2024/06/25 04:34:34 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/06/25 05:05:38 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/so_long.h"
+#include "../includes/so_long.h"
 
 static int	get_screen_size(int *x_address, int *y_address)
 {

@@ -6,11 +6,11 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 18:10:31 by ibaby             #+#    #+#             */
-/*   Updated: 2024/06/25 03:18:08 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/06/25 05:05:38 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/so_long.h"
+#include "../includes/so_long.h"
 
 void	put_trees(t_data *data, void *image_ptr)
 {
@@ -19,19 +19,21 @@ void	put_trees(t_data *data, void *image_ptr)
 	i = 0;
 	while (i < data->wall_count_x2)
 	{
-		image_to_window(data, image_ptr,
-				data->wall_pos[i + 1],data->wall_pos[i]);
+		image_to_window(data, image_ptr, data->wall_pos[i + 1],
+				data->wall_pos[i]);
 		i += 2;
 	}
 }
 
 int	animation(t_data *data)
 {
-	static int	frame = 0;
+	static int	frame;
 	float		count;
-	static int	count2 = 0;
+	static int	count2;
 	int			between_sprite;
 
+	frame = 0;
+	count2 = 0;
 	between_sprite = 10000;
 	count = ++frame % ((between_sprite * 6) * 4);
 	if (count == 0)
